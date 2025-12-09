@@ -1,0 +1,465 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+body {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #000000 0%, #000000 50%, #0f3460 100%);
+    color: #fff;
+    overflow-x: hidden;
+    padding: 20px;
+}
+
+/* Animated background elements */
+.bg-elements {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.bg-element {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    animation: float 15s infinite linear;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+    100% {
+        transform: translateY(-1000px) rotate(720deg);
+    }
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+    max-width: 600px;
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: visible; /* Changed from hidden to visible */
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(120, 119, 198, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+    z-index: -1;
+}
+
+/* Header */
+.container header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 30px;
+    text-align: center;
+    position: relative;
+    overflow: visible; /* Ensure header doesn't clip dropdown */
+}
+
+header h1 {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ffd166 50%, #06d6a0 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 2.8em;
+    font-weight: 800;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    letter-spacing: 1px;
+}
+
+/* Input Section */
+header .input-section {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+    overflow: visible;
+}
+
+.input-section input {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    height: 50px;
+    padding: 0 20px;
+    font-size: 1.1rem;
+    color: white;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+}
+
+.input-section input:focus {
+    outline: none;
+    border-color: rgba(255, 209, 102, 0.5);
+    box-shadow: 0 0 10px rgba(255, 209, 102, 0.3);
+}
+
+.input-section input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Buttons Styling */
+.btn {
+    cursor: pointer;
+    user-select: none;
+    border: none;
+    outline: none;
+    text-align: center;
+    border-radius: 12px;
+    height: 50px;
+    min-height: 50px;
+    text-transform: uppercase;
+    animation: button-pop 0.25s ease-in-out;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+    justify-content: center;
+    align-items: center;
+    padding: 0 25px;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1em;
+    text-decoration-line: none;
+    transition: all 0.3s ease cubic-bezier(.4,0,.2,1);
+    display: inline-flex;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn-add {
+    background: linear-gradient(135deg, #118ab2 0%, #06d6a0 100%);
+    color: white;
+    box-shadow: 0 5px 15px rgba(6, 214, 160, 0.3);
+}
+
+.btn-add:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(6, 214, 160, 0.4);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #06d6a0 0%, #118ab2 100%);
+    color: white;
+    box-shadow: 0 3px 10px rgba(6, 214, 160, 0.3);
+}
+
+.btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(6, 214, 160, 0.4);
+}
+
+.btn-error {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ff9e6d 100%);
+    color: white;
+    box-shadow: 0 3px 10px rgba(255, 107, 107, 0.3);
+}
+
+.btn-error:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+}
+
+/* Filters Section */
+.todos-filter, .filters {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+    gap: 15px;
+    position: relative;
+    overflow: visible; /* Important for dropdown visibility */
+}
+
+.filters {
+    margin-top: 15px;
+    position: relative;
+    overflow: visible;
+}
+
+/* Fixed Dropdown */
+.dropbtn {
+    background: linear-gradient(135deg, #118ab2 0%, #06d6a0 100%);
+    color: white;
+    padding: 12px 20px;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(6, 214, 160, 0.3);
+    white-space: nowrap;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    overflow: visible; /* Crucial fix */
+    z-index: 1000; /* Ensure dropdown appears above other elements */
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%; /* Position below the button */
+    left: 0;
+    background: rgba(30, 30, 45, 0.95); /* Darker background for better contrast */
+    backdrop-filter: blur(15px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+    z-index: 1001; /* Higher than dropdown container */
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background 0.3s ease;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-content a:last-child {
+    border-bottom: none;
+}
+
+.dropdown-content a:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateX(5px);
+}
+
+/* Show dropdown on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+.dropdown:hover .dropbtn {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(6, 214, 160, 0.4);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Todos List */
+.todos-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 200px;
+    max-height: 54vh;
+    overflow-y: auto;
+    width: 100%;
+    gap: 10px;
+    position: relative;
+    z-index: 1; /* Lower than dropdown */
+}
+
+.todos-list .todo-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 18px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.todo-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #ff6b6b, #ffd166, #06d6a0);
+}
+
+.todo-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.todo-item p {
+    margin-right: 15px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    flex: 1;
+}
+
+.todo-item .todo-actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.todo-actions button:not(:last-child) {
+    margin-right: 0;
+}
+
+.di, .ci {
+    pointer-events: none;
+}
+
+.line {
+    text-decoration: line-through;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Status Message */
+.status-message {
+    font-size: 1.1em;
+    font-weight: 600;
+    padding: 15px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffd166;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    width: 100%;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .container {
+        padding: 25px;
+        margin: 0 10px;
+        overflow: visible; /* Ensure mobile doesn't clip */
+    }
+    
+    header h1 {
+        font-size: 2.2em;
+    }
+    
+    .input-section {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .input-section input {
+        width: 100%;
+    }
+    
+    .todos-filter, .filters {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .todo-item {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .todo-actions {
+        justify-content: center !important;
+    }
+    
+    .btn {
+        padding: 0 20px;
+        font-size: 0.9rem;
+    }
+    
+    /* Mobile dropdown adjustments */
+    .dropdown-content {
+        min-width: 160px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+@media only screen and (max-width: 530px) {
+    .container {
+        margin: 0 10px;
+        max-width: 96%;
+        min-width: 96%;
+        padding: 20px;
+        overflow: visible;
+    }
+    
+    .dropdown-content {
+        position: fixed;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        max-width: 200px;
+    }
+}
