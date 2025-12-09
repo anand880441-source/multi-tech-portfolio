@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather App</title>
+    <title>Weather Forecast Pro</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="app-container">
         <div class="background-animation">
@@ -18,50 +21,319 @@
 
         <div class="weather-app">
             <header class="app-header">
-                <h1 class="app-title">
-                    <i class="fas fa-cloud-sun"></i>
-                    Weather Forecast
-                </h1>
-                <div class="current-time" id="currentTime">Loading...</div>
+                <div class="header-top">
+                    <h1 class="app-title">
+                        <i class="fas fa-cloud-sun"></i>
+                        Weather Forecast Pro
+                    </h1>
+                    <div class="header-controls">
+                        <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                        <button class="temp-toggle" id="tempToggle" title="Toggle temperature unit">
+                            °C | °F
+                        </button>
+                    </div>
+                </div>
+                <div class="header-bottom">
+                    <div class="current-time" id="currentTime">Loading...</div>
+                    <div class="location-auto" id="autoLocation">
+                        <i class="fas fa-location-crosshairs"></i>
+                        Auto-locate
+                    </div>
+                </div>
             </header>
 
             <section class="search-section">
                 <div class="search-container">
                     <div class="search-box">
                         <i class="fas fa-search search-icon"></i>
-                        <input type="text" id="cityInput" placeholder="Search for a city..." value="Delhi">
+                        <input type="text" id="cityInput" placeholder="Search for city, state or country..."
+                            value="Delhi">
                         <button id="searchBtn" class="search-button">
                             <i class="fas fa-search-location"></i>
                             Search
                         </button>
+                        <button class="voice-search-btn" id="voiceSearchBtn" title="Voice Search">
+                            <i class="fas fa-microphone"></i>
+                        </button>
                     </div>
                 </div>
-                
-                <div class="quick-cities">
-                    <button class="city-chip" data-city="Delhi">Delhi</button>
-                    <button class="city-chip" data-city="Mumbai">Mumbai</button>
-                    <button class="city-chip" data-city="London">London</button>
-                    <button class="city-chip" data-city="New York">New York</button>
-                    <button class="city-chip" data-city="Tokyo">Tokyo</button>
+
+                <div class="voice-modal" id="voiceModal">
+                    <div class="voice-modal-content">
+                        <div class="voice-icon">
+                            <i class="fas fa-microphone"></i>
+                        </div>
+                        <div class="voice-status" id="voiceStatus">
+                            Click to speak...
+                        </div>
+                        <div class="voice-transcript" id="voiceTranscript">
+                            Listening for city name...
+                        </div>
+                        <div class="voice-wave">
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                        </div>
+                        <button class="voice-close" id="voiceClose">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <div class="voice-tips">
+                            <small>Tip: Say "New York" or "Weather in London"</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quick-access">
+                    <div class="section-title">
+                        <i class="fas fa-bolt"></i>
+                        Quick Access
+                    </div>
+
+                    <div class="quick-cities">
+                        <button class="city-chip" data-city="Delhi">
+                            <i class="fas fa-city"></i>
+                            Delhi
+                        </button>
+                        <button class="city-chip" data-city="Mumbai">
+                            <i class="fas fa-city"></i>
+                            Mumbai
+                        </button>
+                        <button class="city-chip" data-city="London">
+                            <i class="fas fa-globe-europe"></i>
+                            London
+                        </button>
+                        <button class="city-chip" data-city="New York">
+                            <i class="fas fa-globe-americas"></i>
+                            New York
+                        </button>
+                        <button class="city-chip" data-city="Tokyo">
+                            <i class="fas fa-globe-asia"></i>
+                            Tokyo
+                        </button>
+                    </div>
+
+                    <div class="recent-searches" id="recentSearchesContainer">
+                        <div class="section-title">
+                            <i class="fas fa-history"></i>
+                            Recent Searches
+                        </div>
+                        <div class="recent-list" id="recentSearchesList"></div>
+                    </div>
+
+                    <div class="favorite-cities" id="favoritesContainer">
+                        <div class="section-title">
+                            <i class="fas fa-star"></i>
+                            Favorites
+                        </div>
+                        <div class="favorites-list" id="favoritesList"></div>
+                    </div>
                 </div>
             </section>
 
             <main class="weather-main">
-                <div id="weatherContainer">
-                    <div class="loading-container">
-                        <div class="weather-loader">
-                            <div class="loader-circle"></div>
-                            <div class="loader-text">Detecting your weather...</div>
+                <div class="weather-tabs" id="weatherTabs">
+                    <button class="tab-btn active" data-tab="current">
+                        <i class="fas fa-sun"></i>
+                        Current
+                    </button>
+                    <button class="tab-btn" data-tab="hourly">
+                        <i class="fas fa-clock"></i>
+                        Hourly
+                    </button>
+                    <button class="tab-btn" data-tab="forecast">
+                        <i class="fas fa-calendar-alt"></i>
+                        5-Day
+                    </button>
+                    <button class="tab-btn" data-tab="air">
+                        <i class="fas fa-wind"></i>
+                        Air Quality
+                    </button>
+                    <button class="tab-btn" data-tab="map">
+                        <i class="fas fa-map"></i>
+                        Map
+                    </button>
+                    <button class="tab-btn" data-tab="compare">
+                        <i class="fas fa-balance-scale"></i>
+                        Compare
+                    </button>
+                </div>
+
+                <div class="tabs-content">
+                    <div class="tab-content active" id="currentTab">
+                        <div id="weatherContainer">
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="hourlyTab">
+                        <div class="hourly-forecast-container">
+                            <div class="hourly-header">
+                                <h3><i class="fas fa-clock"></i> 24-Hour Forecast</h3>
+                                <div class="hourly-now">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span id="hourlyLocation">Loading location...</span>
+                                </div>
+                            </div>
+                            <div class="hourly-timeline" id="hourlyTimeline">
+                            </div>
+                            <div class="hourly-chart-container">
+                                <canvas id="hourlyChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="forecastTab">
+                        <div class="forecast-container">
+                            <div class="forecast-header">
+                                <h3><i class="fas fa-calendar-alt"></i> 5-Day Forecast</h3>
+                                <div class="forecast-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span id="forecastLocation">Loading location...</span>
+                                </div>
+                            </div>
+                            <div class="forecast-days" id="forecastDays">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="airTab">
+                        <div class="air-quality-container">
+                            <div class="aqi-main">
+                                <div class="aqi-header">
+                                    <h3><i class="fas fa-wind"></i> Air Quality Index</h3>
+                                    <div class="aqi-location">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span id="aqiLocation">Loading location...</span>
+                                    </div>
+                                </div>
+                                <div class="aqi-meter" id="aqiMeter">
+                                </div>
+                                <div class="aqi-details">
+                                    <div class="aqi-components" id="aqiComponents">
+                                    </div>
+                                    <div class="health-recommendations" id="healthRecommendations">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="mapTab">
+                        <div class="map-container">
+                            <div class="map-header">
+                                <h3><i class="fas fa-map"></i> Weather Map</h3>
+                                <div class="map-controls">
+                                    <button class="map-layer-btn active" data-layer="temperature">
+                                        <i class="fas fa-thermometer-half"></i> Temp
+                                    </button>
+                                    <button class="map-layer-btn" data-layer="precipitation">
+                                        <i class="fas fa-cloud-rain"></i> Rain
+                                    </button>
+                                    <button class="map-layer-btn" data-layer="wind">
+                                        <i class="fas fa-wind"></i> Wind
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="weatherMap"></div>
+                            <div class="map-info">
+                                <div class="map-coordinates">
+                                    <span>Lat: <span id="mapLat">0</span></span>
+                                    <span>Lon: <span id="mapLon">0</span></span>
+                                </div>
+                                <div class="map-scale">
+                                    Scale: 1:100,000
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="compareTab">
+                        <div class="compare-container">
+                            <div class="compare-header">
+                                <h3><i class="fas fa-balance-scale"></i> Compare Cities</h3>
+                                <button class="add-comparison-btn" id="addComparisonBtn">
+                                    <i class="fas fa-plus"></i> Add City
+                                </button>
+                            </div>
+                            <div class="compare-inputs">
+                                <div class="compare-city">
+                                    <input type="text" class="compare-input" id="compareCity1"
+                                        placeholder="Enter first city" value="Delhi">
+                                    <button class="compare-search" data-id="1">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                                <div class="compare-vs">VS</div>
+                                <div class="compare-city">
+                                    <input type="text" class="compare-input" id="compareCity2"
+                                        placeholder="Enter second city" value="Mumbai">
+                                    <button class="compare-search" data-id="2">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="compare-results" id="compareResults">
+                            </div>
                         </div>
                     </div>
                 </div>
-            </main>
 
+                <div class="weather-suggestions" id="weatherSuggestions">
+                    <div class="suggestions-header">
+                        <h3><i class="fas fa-lightbulb"></i> Weather Recommendations</h3>
+                    </div>
+                    <div class="suggestions-grid" id="suggestionsGrid">
+                    </div>
+                </div>
+
+                <div class="weather-sounds" id="weatherSounds">
+                    <div class="sounds-header">
+                        <h3><i class="fas fa-volume-up"></i> Ambient Sounds</h3>
+                        <button class="sounds-toggle" id="soundsToggle">
+                            <i class="fas fa-play"></i> Play
+                        </button>
+                    </div>
+                    <div class="sounds-progress">
+                        <div class="progress-bar" id="soundProgressBar"></div>
+                    </div>
+                </div>
+            </main>
             <footer class="app-footer">
-                <div class="footer-info">
-                    <span>Real-time Weather Data</span>
-                    <span class="separator">•</span>
-                    <span id="dataSource">Source: Loading...</span>
+                <div class="footer-top">
+                    <div class="footer-info">
+                        <span>Real-time Weather Data</span>
+                        <span class="separator">•</span>
+                        <span id="dataSource">Source: Loading...</span>
+                        <span class="separator">•</span>
+                        <span id="lastUpdate">Last update: --:--</span>
+                    </div>
+                    <div class="footer-share">
+                        <button class="share-btn" id="shareBtn">
+                            <i class="fas fa-share-alt"></i> Share
+                        </button>
+                        <button class="refresh-btn" id="refreshBtn">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <div class="system-status">
+                        <span class="status-indicator active" id="apiStatus">
+                            <i class="fas fa-circle"></i> API: Online
+                        </span>
+                        <span class="status-indicator" id="gpsStatus">
+                            <i class="fas fa-circle"></i> GPS: Offline
+                        </span>
+                        <span class="status-indicator" id="cacheStatus">
+                            <i class="fas fa-circle"></i> Cache: Ready
+                        </span>
+                    </div>
                 </div>
             </footer>
         </div>
@@ -71,9 +343,27 @@
             <i class="fas fa-cloud floating-icon"></i>
             <i class="fas fa-wind floating-icon"></i>
             <i class="fas fa-bolt floating-icon"></i>
+            <i class="fas fa-snowflake floating-icon"></i>
+            <i class="fas fa-umbrella floating-icon"></i>
         </div>
+
+        <div class="notification-container" id="notificationContainer"></div>
     </div>
 
+    <audio id="rainSound" loop>
+        <source src="./assets/mixkit-thunderstorm-and-rain-2391.wav" type="audio/mpeg">
+    </audio>
+    <audio id="windSound" loop>
+        <source src="./assets/winter-wind-305577.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="thunderSound" loop>
+        <source src="./assets/dry-thunder-364468.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="https://unpkg.com/web-speech-cognitive-services/lib/speech.browser.sdk.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
 </body>
+
 </html>
