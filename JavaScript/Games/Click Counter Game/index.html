@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click Counter Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="color">
+    <!-- <div class="audio-container"><audio src=""></audio></div> -->
+    <div class="video-container"><video src="WhatsApp Video 2025-11-03 at 09.39.59_4fd99e33.mp4" autoplay muted></video>
+    </div>
+    <div class="bg-elements" id="bg-elements"></div>
+
+    <div class="container">
+        <h1>Click Counter Game</h1>
+        <p class="subtitle">Click as fast as you can!</p>
+
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+
+        <!-- Score Display Section -->
+        <div class="score-section">
+            <div class="score-box">
+                <h2>Current Score</h2>
+                <div id="currentScore" class="score">0</div>
+            </div>
+            <div class="score-box">
+                <h2>High Score</h2>
+                <div id="highScore" class="score">0</div>
+            </div>
+        </div>
+
+        <!-- Timer Display -->
+        <div class="timer-section">
+            <h2>Time Remaining</h2>
+            <div id="timer" class="timer">10</div>
+        </div>
+
+        <!-- Game Buttons -->
+        <div class="button-section">
+            <button id="clickButton" class="click-btn" disabled>
+                Click Me!
+            </button>
+            <button id="startButton" class="start-btn">
+                Start Game
+            </button>
+            <button id="resetButton" class="reset-btn">
+                Reset High Score
+            </button>
+            <button id="pauseButton" class="start-btn" disabled>
+                Pause
+            </button>
+        </div>
+
+        <!-- Game Status Message -->
+        <div id="statusMessage" class="status-message">
+            Click "Start Game" to begin!
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+
+</html>
+
+
+
+<!-- 
+
+1.  setInterval(function,ms);
+                  |
+                  |weakness
+                  |
+                  |->{infinite call}
+                  
+2.  clearInterval(id);
+                   |
+                   |
+                   |-> id of individual/specific setInterval 
+                  
+                  
+
+
+
+        HTML                      HTML 
+    
+    +----------+            +--------------------+
+    |          |            |Element access      |
+    |          |            |                    |
+    |<p>||</p> |            |1.create            |
+    |          |            |2.content + style   |
+    |          |            |3.specific location |
+    +----------+            +--------------------+
+-->
+
+<!-- 1. JS -> (1) var-name.style.proparty-name = '';
+               |
+               |css
+               |property(onject1)
+               |
+              \ /   (obj1)
+         (2) const var_name = {
+          |         
+          |     key : value,
+          |     key : value,
+          |      |       |->{Property_value <- CSS}
+          |      |->{CSS-> Property_name}
+          |    }
+          |
+          |-> object.assign(var_name.style , obj1)     
+           
+For example:-
+
+    var name1 = document.querySelector('h1');
+
+    const headStyle = {
+    backgroundColor: 'blue',
+    color: 'yellow',
+    fontSize: '30px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100vw',
+    height: '100vh',
+    }
+
+    Object.assign(name1.style, headStyle ); 
+    
+                (JS help)
+2. Create Element ____>  Process  
+
+            +-----------------+
+            |                 |   
+            |                 |  
+           \ /                |
+    var paraCreate = document.createElement('p') or ('h1') or ('div').....etc
+            |
+            |store newelement
+            |
+            +-------------_>  <p>|||</p>
+                                  |
+                               {Empty}  
+    
+    
+
+
+    <body> ____> Parent
+        -----------
+    </body>
+
+
+    ->document.body.append(|)                                                               JS
+                           |                                                            -----|--_>
+                          \ /                                                                |
+                        ParaCreate                                                           |
+                        ------------                                                        Empty
+                        Element                                                           (element body)
+                                                                                             |      
+                                                                                           Append
+
+For Example:-
+
+        var paraCreate = document.createElement('p');
+        var name = document.body.append(paraCreate);
+
+        paraCreate.textContent = "VIKRAM";
+
+
+-->                                                                     
