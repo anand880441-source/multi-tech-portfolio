@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Tic Tac Toe</h1>
+        <div class="game-controls">
+            <button id="size3x3" class="size-btn active">3x3</button>
+            <button id="size6x6" class="size-btn">6x6</button>
+        </div>
+        <div class="board" id="gameBoard">
+        </div>
+        <p id="status">Player O's turn</p>
+        
+        <div class="storage-controls">
+            <div class="local">
+                <h3>Local Storage</h3>
+                <button id="saveLocalBtn">Save to Local Storage</button>
+                <button id="retrieveLocalBtn">Retrieve from Local Storage</button>
+            </div>
+            <div class="session">
+                <h3>Session Storage</h3>
+                <button id="saveSessionBtn">Save to Session Storage</button>
+                <button id="retrieveSessionBtn">Retrieve from Session Storage</button>
+            </div>
+        </div>
+        
+        <p id="output"></p>
+        <button id="reset">Reset Game</button>
+    </div>
+
+    <div class="bg-elements">
+        <div class="bg-element" style="width: 80px; height: 80px; top: 10%; left: 20%; animation-delay: 0s;"></div>
+        <div class="bg-element" style="width: 120px; height: 120px; top: 60%; left: 80%; animation-delay: 2s;"></div>
+        <div class="bg-element" style="width: 60px; height: 60px; top: 80%; left: 40%; animation-delay: 4s;"></div>
+        <div class="bg-element" style="width: 100px; height: 100px; top: 30%; left: 70%; animation-delay: 6s;"></div>
+        <div class="bg-element" style="width: 90px; height: 90px; top: 50%; left: 10%; animation-delay: 8s;"></div>
+    </div>
+
+    <script src="./index.js"></script>
+</body>
+</html>
