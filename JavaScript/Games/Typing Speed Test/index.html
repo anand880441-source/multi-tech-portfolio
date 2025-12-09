@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Speed Test</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>⌨️ Typing Speed Test</h1>
+        
+        <!-- ADD: Instructions/Message Box -->
+        <div class="message-box" id="messageBox">
+            <p>Type the text shown above as fast and accurately as possible!</p>
+        </div>
+        
+        <section class="multi-time">
+            <div class="se-timer">Selecr Timer :</div>
+            <div class="multi-timer1">15</div>
+            <div class="multi-timer2">30</div>
+            <div class="multi-timer3">60</div>
+        </section>
+
+        <div class="stats-bar">
+            <div class="stat-box">
+                <h3>Time</h3>
+                <div id="timer">60</div>
+            </div>
+            <div class="stat-box">
+                <h3>WPM</h3>
+                <div id="wpm">0</div>
+            </div>
+            <div class="stat-box">
+                <h3>Accuracy</h3>
+                <div id="accuracy">0%</div>
+            </div>
+            <div class="stat-box">
+                <h3>Best WPM</h3>
+                <div id="bestWPM">0</div>
+            </div>
+        </div>
+        
+        <div class="text-display" id="textDisplay">
+            Click "Start Test" to begin typing!
+        </div>
+        
+        <textarea 
+            id="typingArea" 
+            placeholder="The test will start when you begin typing..."
+            disabled
+            rows="4"
+        ></textarea>
+        
+        <div class="button-group">
+            <button id="startBtn" class="start-btn">Start Test</button>
+            <button id="resetBtn" class="reset-btn">Reset Session</button>
+        </div>
+        
+        <div class="results-box" id="resultsBox" style="display: none;">
+            <h3>Test Complete!</h3>
+            <p>Your score: <span id="finalWPM">0</span> WPM with <span id="finalAccuracy">0%</span> accuracy</p>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
