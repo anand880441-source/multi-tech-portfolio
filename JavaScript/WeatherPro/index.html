@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <div class="background-animation">
+            <div class="sun"></div>
+            <div class="cloud cloud-1"></div>
+            <div class="cloud cloud-2"></div>
+            <div class="cloud cloud-3"></div>
+        </div>
+
+        <div class="weather-app">
+            <header class="app-header">
+                <h1 class="app-title">
+                    <i class="fas fa-cloud-sun"></i>
+                    Weather Forecast
+                </h1>
+                <div class="current-time" id="currentTime">Loading...</div>
+            </header>
+
+            <section class="search-section">
+                <div class="search-container">
+                    <div class="search-box">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" id="cityInput" placeholder="Search for a city..." value="Delhi">
+                        <button id="searchBtn" class="search-button">
+                            <i class="fas fa-search-location"></i>
+                            Search
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="quick-cities">
+                    <button class="city-chip" data-city="Delhi">Delhi</button>
+                    <button class="city-chip" data-city="Mumbai">Mumbai</button>
+                    <button class="city-chip" data-city="London">London</button>
+                    <button class="city-chip" data-city="New York">New York</button>
+                    <button class="city-chip" data-city="Tokyo">Tokyo</button>
+                </div>
+            </section>
+
+            <main class="weather-main">
+                <div id="weatherContainer">
+                    <div class="loading-container">
+                        <div class="weather-loader">
+                            <div class="loader-circle"></div>
+                            <div class="loader-text">Detecting your weather...</div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <footer class="app-footer">
+                <div class="footer-info">
+                    <span>Real-time Weather Data</span>
+                    <span class="separator">•</span>
+                    <span id="dataSource">Source: Loading...</span>
+                </div>
+            </footer>
+        </div>
+
+        <div class="floating-icons">
+            <i class="fas fa-sun floating-icon"></i>
+            <i class="fas fa-cloud floating-icon"></i>
+            <i class="fas fa-wind floating-icon"></i>
+            <i class="fas fa-bolt floating-icon"></i>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
