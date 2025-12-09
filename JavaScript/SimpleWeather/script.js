@@ -5,7 +5,7 @@ const currentTimeElement = document.getElementById('currentTime');
 const dataSourceElement = document.getElementById('dataSource');
 
 const API_KEYS = {
-    openWeather: "c959f716161ccbfa11def61612bae01"
+    openWeather: "YOUR_API_KEY_HERE"
 };
 
 const LOCATION_DATABASE = {
