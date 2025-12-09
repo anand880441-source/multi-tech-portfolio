@@ -75,7 +75,7 @@ const APP_STATE = {
         }
     },
     API_KEYS: {
-        openWeather: "c0589f716161ccbfa11def61612bae01",
+        openWeather: "YOUR_API_KEY_HERE",
         mapbox: "pk.eyJ1Ijoid2VhdGhlcmFwcCIsImEiOiJjbHZqNnE1bmMwNGVnMmpxbGU2eGc2enBkIn0.1234567890"
     },
     sounds: {
