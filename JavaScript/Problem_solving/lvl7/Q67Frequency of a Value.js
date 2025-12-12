@@ -17,14 +17,37 @@
 
 
 
+// function frequencyCount(arr,value) {
+
+//     var count = 0;
+//     for (let i = 0; i < arr.length; i++) {
+//         if (arr[i] == value) {
+//             count++;
+//         }
+//     }
+//     console.log(count)
+// }
+// frequencyCount(["a", "a", "b", "f", "y", "p"], "a");
+
+
+
+
 function frequencyCount(arr,value) {
 
-    var count = 0;
+    let obj = {};
     for (let i = 0; i < arr.length; i++) {
-        if (arr[i] == value) {
-            count++;
+        if (obj[arr[i]]) {
+            obj[arr[i]]++;
+        }
+        else {
+            obj[arr[i]] = 1
         }
     }
-    console.log(count)
+    if (obj[value]) {
+        return obj[value]
+    }
+    else {
+        return -1
+    }
 }
-frequencyCount(["a", "a", "b", "f", "y", "p"], "a");
+console.log(frequencyCount(["a","a","b","f","y","p"], "a"));
