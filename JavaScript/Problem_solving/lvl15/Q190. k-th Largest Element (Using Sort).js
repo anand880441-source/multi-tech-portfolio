@@ -1,4 +1,4 @@
-function kthSmallestWithInsertionSort(arr, k) {
+function kthMaxWithInsertionSort(arr, k) {
     for(let i = 0; i < arr.length - 1; i++){
         if(arr[i] < arr[i+1]){
             for(let j = i+1; j > 0; j--){
@@ -14,4 +14,4 @@ function kthSmallestWithInsertionSort(arr, k) {
     return arr[k - 1];
 }
 
-console.log(kthSmallestWithInsertionSort([7, 10, 4, 3, 20, 15], 3));
+console.log(kthMaxWithInsertionSort([7, 10, 4, 3, 20, 15], 3));
