@@ -14,6 +14,7 @@ function countOccurrences(arr, target) {
             } else {
                 right = mid - 1;
             }
+            
         }
         console.log("FIRST " + first);
         return first;

@@ -7,6 +7,7 @@ function twoSum(arr){
             }
         }
     }
+    
     console.log(max)
 }
 twoSum([1,2,3,4,5])
